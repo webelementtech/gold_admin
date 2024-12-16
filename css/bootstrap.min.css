@@ -8062,8 +8062,8 @@ fieldset:disabled .btn {
 }
 
 .py-5 {
-           padding-top: 3rem !important;
-           padding-bottom: 3rem !important
+           padding-top: 1rem !important;
+           padding-bottom: 1rem !important
 }
 
 .pt-0 {
@@ -8284,7 +8284,7 @@ fieldset:disabled .btn {
 }
 
 .text-primary {
-           color: #06A3DA !important
+           color: #ecb71f !important
 }
 
 .text-secondary {
@@ -8340,7 +8340,7 @@ fieldset:disabled .btn {
 }
 
 .bg-primary {
-           background-color: #06A3DA !important
+           background-color: #f0dc6d !important
 }
 
 .bg-secondary {
