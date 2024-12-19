@@ -159,27 +159,29 @@
                 </div>
                 <div class="col-lg-5">
                     <div class="bg-primary rounded h-100 d-flex align-items-center p-5 wow zoomIn" data-wow-delay="0.9s">
-                        <form>
+                        <form id="userForm" method="POST">
                             <div class="row g-3">
                                 <div class="col-xl-12">
-                                    <input type="text" class="form-control bg-light border-0" placeholder="Your Name" style="height: 55px;">
+                                    <input type="text" id="name" class="form-control bg-light border-0" placeholder="Your Name" style="height: 55px;">
+                                </div>
+                                <div class="col-12">            
+                                    <input type="email" id="email" class="form-control bg-light border-0" placeholder="Your Email" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <input type="email" class="form-control bg-light border-0" placeholder="Your Email" style="height: 55px;">
+                                    <input type="int" id="mobile" class="form-control bg-light border-0" placeholder="Mobile Number" style="height: 55px;">
+                                </div>
+                                <div class="col-12">            
+                                    <input type="int" id="experience" class="form-control bg-light border-0" placeholder="Trading Experience" style="height: 55px;">
                                 </div>
                                 <div class="col-12">
-                                    <select class="form-select bg-light border-0" style="height: 55px;">
-                                        <option selected>Select A Service</option>
-                                        <option value="1">Service 1</option>
-                                        <option value="2">Service 2</option>
-                                        <option value="3">Service 3</option>
-                                    </select>
+                                    <input type="text" id="city" class="form-control bg-light border-0" placeholder="City" style="height: 55px;">
                                 </div>
+
+
+                                <div class="col-12" id="output" class="d-flex justify-content-center"></div>
+
                                 <div class="col-12">
-                                    <textarea class="form-control bg-light border-0" rows="3" placeholder="Message"></textarea>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-dark w-100 py-3" type="submit">Request A Quote</button>
+                                    <button class="btn btn-dark w-100 py-3" type="submit">Submit</button>
                                 </div>
                             </div>
                         </form>
@@ -318,6 +320,105 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+        function validateName(name) {
+          const nameRegex = /^[a-zA-Z\s]{2,150}$/; // Allows letters and spaces, 2 to 50 characters
+          return nameRegex.test(name);
+        }
+        function validateCity(city) {
+          const nameRegex = /^[a-zA-Z\s]{2,150}$/; // Allows letters and spaces, 2 to 50 characters
+          return nameRegex.test(city);
+          
+        }
+        
+        // Function to validate email
+        function validateEmail(email) {
+          const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+          return emailRegex.test(email);
+        }
+        
+        // Function to validate mobile number
+        function validateMobileNumber(mobileNumber) {
+          const mobileRegex = /^\d{10}$/; // 10 digits 
+          return mobileRegex.test(mobileNumber);
+        }
+
+        function generateRandom12DigitNumber() {
+    const min = 10**11; // Smallest 12-digit number
+    const max = 10**12 - 1; // Largest 12-digit number
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+        
+        // Form submission event listener
+        document.getElementById('userForm').addEventListener('submit', function (event) {
+          event.preventDefault(); // Prevent the default form submission
+        
+          // Read form data
+          const name = document.getElementById('name').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const mobile = document.getElementById('mobile').value.trim();
+          const city = document.getElementById('city').value.trim();
+          const exp = document.getElementById('experience').value.trim();
+          
+          // Validate form data
+          const isNameValid = validateName(name);
+          const isEmailValid = validateEmail(email);
+          const isMobileValid = validateMobileNumber(mobile);
+          const isCityValid = validateCity(city);
+          // Display validation results
+          const output = document.getElementById('output');
+          output.innerHTML = ''; // Clear previous output
+        
+          if (!isNameValid) {
+              output.innerHTML += '<p style="color: red;">Invalid name. alphabetic characters Only.</p>';
+              name.focus();
+        
+          }
+          if (!isEmailValid) {
+              output.innerHTML += '<p style="color: red;">Invalid email address.</p>';
+              email.focus();
+          }
+          if (!isMobileValid) {
+              output.innerHTML += '<p style="color: red;">Invalid mobile number. </p>';
+              mobile.focus();
+          }
+          if(!isCityValid){
+              output.innerHTML += '<p style="color: red;">Invalid city </p>';
+              city.focus();
+          }
+        
+          if(name===""){
+              output.innerHTML += '<p style="color: red;">Please fill name</p>';
+              name.focus();
+          }
+        
+          if(city===""){
+              output.innerHTML += '<p style="color: red;">Please fill city</p>';
+              city.focus();
+          }
+        
+          if (isNameValid && isEmailValid && isMobileValid && isCityValid && name && city) {
+              
+              const utr= generateRandom12DigitNumber();
+              const course = "elite";
+              
+              $.ajax({
+                  url: "insert.php", // PHP file to handle insertion
+                  type: "POST",
+                  data: { name: name, email: email, mobile: mobile,city:city,exp:exp,utr_no:utr,course: course},
+                  success: function (response) {
+                      document.getElementById("output").innerText = response;
+                  },
+                  error: function (xhr, status, error) {
+                      document.getElementById("output").innerText = "Error: " + error;
+                  }
+              });
+          
+              
+          }
+        });
+        </script>
+
 </body>
 
 </html>
