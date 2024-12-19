@@ -6,6 +6,6 @@ session_start();
 session_destroy();
 
 // Redirect to login page after logout
-header('Location: admin.html');
+header('Location: index.html');
 exit();
 ?>
