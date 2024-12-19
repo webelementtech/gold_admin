@@ -3082,14 +3082,14 @@ fieldset:disabled .btn {
 
 .btn-primary {
            color: #000;
-           background-color: #06A3DA;
-           border-color: #06A3DA
+           background-color: #ecb71f;
+           border-color: #ecb71f
 }
 
 .btn-primary:hover {
            color: #000;
-           background-color: #2bb1e0;
-           border-color: #1facde
+           background-color: #2be0a4;
+           border-color: #2be0a4
 }
 
 .btn-check:focus+.btn-primary,
@@ -4328,7 +4328,7 @@ fieldset:disabled .btn {
 .nav-link {
            display: block;
            padding: .5rem 1rem;
-           color: #4fd796c3;
+           color: #06da74;
            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out
 }
 
